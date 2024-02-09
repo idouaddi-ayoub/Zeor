@@ -1,5 +1,5 @@
 -- premake5.lua
-workspace "New Project"
+workspace "Windows App"
    architecture "x64"
    configurations { "Debug", "Release", "Dist" }
    startproject "App"
