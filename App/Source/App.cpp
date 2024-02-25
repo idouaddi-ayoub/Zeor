@@ -1,7 +1,13 @@
 #include "Core/Core.h"
 
+#include <cstdlib>
+#include <iostream>
+
 int main()
 {
-	Core::PrintHelloWorld();
-	//Core::PrintHelloWorld2();
+	std::cout << "First func\n";
+
+	Core::testFunc();
+
+	return EXIT_SUCCESS;
 }
