@@ -13,3 +13,8 @@ namespace Calc
 	int multiple(int x, int y);
 	int sum(int x, int y);
 }
+
+namespace openGL
+{
+	int opengl(void);
+}
