@@ -1,5 +1,4 @@
 #include "Core/Core.h"
-
 #include <cstdlib>
 #include <iostream>
 

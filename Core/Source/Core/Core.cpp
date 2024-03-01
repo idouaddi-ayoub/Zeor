@@ -1,6 +1,9 @@
 #include "Core.h"
-#include <iostream>
+
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <iostream>
 
 namespace Core 
 {
@@ -42,32 +45,51 @@ namespace Calc {
 
 namespace openGL {
 
-    unsigned int SCR_WIDTH{ 640 };
-    unsigned int SCR_HEIGHT{ 480 };
+    void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+    void processInput(GLFWwindow* window);
+
+    unsigned int SCR_WIDTH{ 800 };
+    unsigned int SCR_HEIGHT{ 600 };
 
     int opengl(void)
     {
-
         /* Initialize the library */
-        if (!glfwInit())
-            return -1;
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
         /* Create a windowed mode window and its OpenGL context */
-        GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Hello World", NULL, NULL);
-        if (!window)
+        GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Lbzboz", NULL, NULL);
+        if (window == NULL)
         {
-            std::cout << "error creating the window" << std::endl;
+            std::cout << "Error creating the window" << std::endl;
             glfwTerminate();
             return -1;
         }
 
         /* Make the window's context current */
         glfwMakeContextCurrent(window);
+        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+        /*glad*/
+      if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        {
+            std::cout << "failed to initialize gald" << std::endl;
+
+            return -1;
+        }
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
-//add GLAD
+            /*input*/
+            processInput(window);
+
             /* Render here */
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
@@ -80,7 +102,22 @@ namespace openGL {
         }
 
         glfwTerminate();
+
         return 0;
     }
 
+    void processInput(GLFWwindow* window)
+    {
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
+    }
+
+    // glfw: whenever the window size changed (by OS or user resize) this callback function executes
+    // ---------------------------------------------------------------------------------------------
+    void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+    {
+        // make sure the viewport matches the new window dimensions; note that width and 
+        // height will be significantly larger than specified on retina displays.
+        glViewport(0, 0, width, height);
+    }
 }
