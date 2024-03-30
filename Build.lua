@@ -1,5 +1,5 @@
 -- premake5.lua
-workspace "Windows App"
+workspace "OpenGL"
    architecture "x64"
    configurations { "Debug", "Release", "Dist" }
    startproject "App"

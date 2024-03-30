@@ -4,9 +4,6 @@
 
 int main()
 {
-	//std::cout << "First func\n";
-
-	//Core::testFunc();
 	openGL::opengl();
 
 	return EXIT_SUCCESS;
